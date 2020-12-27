@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#474747">
+
+    <TextView
+        android:id="@+id/tv_rsrp_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rsrp"
+        android:textColor="#adadad"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/rsrp_pb"
+        app:layout_constraintStart_toStartOf="@id/rsrp_pb"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/rsrp_pb"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintEnd_toStartOf="@id/rsrq_pb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_rsrp_headline" />
+
+    <TextView
+        android:id="@+id/tv_rsrp_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="@id/rsrp_pb"
+        app:layout_constraintBottom_toBottomOf="@id/rsrp_pb"
+        app:layout_constraintStart_toStartOf="@id/rsrp_pb"
+        app:layout_constraintEnd_toEndOf="@id/rsrp_pb"/>
+
+    <TextView
+        android:id="@+id/tv_rsrq_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rsrq"
+        android:textColor="#adadad"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/rsrq_pb"
+        app:layout_constraintStart_toStartOf="@id/rsrq_pb"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/rsrq_pb"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:progress="50"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintEnd_toStartOf="@id/snr_pb"
+        app:layout_constraintStart_toEndOf="@id/rsrp_pb"
+        app:layout_constraintTop_toBottomOf="@id/tv_rsrp_headline" />
+
+    <TextView
+        android:id="@+id/tv_rsrq_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="@id/rsrq_pb"
+        app:layout_constraintBottom_toBottomOf="@id/rsrq_pb"
+        app:layout_constraintStart_toStartOf="@id/rsrq_pb"
+        app:layout_constraintEnd_toEndOf="@id/rsrq_pb"/>
+
+    <TextView
+        android:id="@+id/tv_snr_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/snr"
+        android:textColor="#adadad"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/snr_pb"
+        app:layout_constraintStart_toStartOf="@id/snr_pb"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/snr_pb"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:progressDrawable="@drawable/custom_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rsrq_pb"
+        app:layout_constraintTop_toBottomOf="@id/tv_rsrp_headline" />
+
+    <TextView
+        android:id="@+id/tv_snr_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="@id/snr_pb"
+        app:layout_constraintBottom_toBottomOf="@id/snr_pb"
+        app:layout_constraintStart_toStartOf="@id/snr_pb"
+        app:layout_constraintEnd_toEndOf="@id/snr_pb"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

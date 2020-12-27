@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.mocktestapp.R
+import com.example.mocktestapp.R.integer.*
+import com.example.mocktestapp.common.custom.Table
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -17,9 +19,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val rsrp = findViewById<TextView>(R.id.tv_rsrp)
-        val rsrq = findViewById<TextView>(R.id.tv_rsrq)
-        val snr = findViewById<TextView>(R.id.tv_snr)
+        val table = findViewById<Table>(R.id.table)
 
 
         Timer().scheduleAtFixedRate(object : TimerTask() {
@@ -30,9 +30,9 @@ class HomeActivity : AppCompatActivity() {
 
         viewModel.viewState.observe(this, Observer {
             it.let { homeViewState ->
-                rsrp.text = homeViewState.data?.RSRP.toString()
-                rsrq.text = homeViewState.data?.RSRQ.toString()
-                snr.text = homeViewState.data?.SINR.toString()
+                table.setRsrpValue(homeViewState.data?.RSRP ?: rsrp_value)
+                table.setRsrqValue(homeViewState.data?.RSRQ ?: rsrq_value)
+                table.setSnrValue(homeViewState.data?.SINR ?: snr_value)
             }
         })
     }
