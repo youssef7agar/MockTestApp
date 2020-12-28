@@ -3,7 +3,7 @@ package com.example.mocktestapp.common.custom
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ProgressBar
+import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.mocktestapp.R
@@ -13,11 +13,11 @@ class Table(context: Context,
 
 
     private val tvRSRP: TextView
-    private val pbRSRP: ProgressBar
+    private val pbRSRP: View
     private val tvRSRQ: TextView
-    private val pbRSRQ: ProgressBar
+    private val pbRSRQ: View
     private val tvSNR: TextView
-    private val pbSNR: ProgressBar
+    private val pbSNR: View
 
     init {
         LayoutInflater.from(context)
@@ -29,41 +29,106 @@ class Table(context: Context,
         pbRSRQ = findViewById(R.id.rsrq_pb)
         tvSNR = findViewById(R.id.tv_snr_value)
         pbSNR = findViewById(R.id.snr_pb)
+    }
 
-        attrs?.let {
-            val typedArray = context.obtainStyledAttributes(it, R.styleable.Table, 0, 0)
-
-            val rsrpValue = resources.getInteger(typedArray
-                    .getResourceId(R.styleable.Table_rsrp_value, R.string.rsrp))
-            tvRSRP.text = rsrpValue.toString()
-            pbRSRP.progress = (rsrpValue + 140) * (100 / 90)
-
-            val rsrqValue = resources.getInteger(typedArray
-                    .getResourceId(R.styleable.Table_rsrq_value, R.string.rsrq))
-            tvRSRQ.text = rsrqValue.toString()
-            pbRSRQ.progress = (rsrqValue + 25) * (4)
-
-            val snrValue = resources.getInteger(typedArray
-                    .getResourceId(R.styleable.Table_snr_value, R.string.snr))
-            tvSNR.text = snrValue.toString()
-            pbSNR.progress = (snrValue + 5) * (100 / 40)
-
-            typedArray.recycle()
+    fun setRsrpValue(value: Int) {
+        tvRSRP.text = value.toString()
+        val progress = (value + 140) * (100 / 90)
+        val params = pbRSRP.layoutParams as LayoutParams
+        if (progress > 0) {
+            params.width = progress
+        } else {
+            params.width = 1
+        }
+        params.topToBottom = R.id.tv_rsrp_headline
+        params.startToStart = R.id.limit1
+        when {
+            value <= -110 -> {
+                pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp1, context.theme))
+            }
+            value in -110..-100 -> {
+                pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp2, context.theme))
+            }
+            value in -100..-90 -> {
+                pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp3, context.theme))
+            }
+            value in -90..-80 -> {
+                pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp4, context.theme))
+            }
+            value in -80..-70 -> {
+                pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp5, context.theme))
+            }
+            value in -70..-60 -> {
+                pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp6, context.theme))
+            }
+            else -> {
+                pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp7, context.theme))
+            }
         }
     }
 
-    fun setRsrpValue(value: Int){
-        tvRSRP.text = value.toString()
-        pbRSRP.progress = (value + 140) * (100 / 90)
-    }
-
-    fun setRsrqValue(value : Int){
+    fun setRsrqValue(value: Int) {
         tvRSRQ.text = value.toString()
-        pbRSRQ.progress = (value + 25) * (4)
+        val progress = (value + 25) * (4)
+        val params = pbRSRQ.layoutParams as LayoutParams
+        if (progress > 0) {
+            params.width = progress
+        } else {
+            params.width = 1
+        }
+        params.topToBottom = R.id.tv_rsrq_headline
+        params.startToStart = R.id.limit2
+
+        if (value <= -19.5) {
+            pbRSRQ.setBackgroundColor(resources.getColor(R.color.rsrq1, context.theme))
+        } else if (-19.5 < value && value <= -14) {
+            pbRSRQ.setBackgroundColor(resources.getColor(R.color.rsrq2, context.theme))
+        } else if (value in -14..-9) {
+            pbRSRQ.setBackgroundColor(resources.getColor(R.color.rsrq3, context.theme))
+        } else if (value in -9..-3) {
+            pbRSRQ.setBackgroundColor(resources.getColor(R.color.rsrq4, context.theme))
+        } else {
+            pbRSRQ.setBackgroundColor(resources.getColor(R.color.rsrq5, context.theme))
+        }
     }
 
-    fun setSnrValue(value: Int){
+    fun setSnrValue(value: Int) {
         tvSNR.text = value.toString()
-        pbSNR.progress = (value + 5) * (100 / 40)
+        val progress = (value + 5) * (100 / 40)
+        val params = pbSNR.layoutParams as LayoutParams
+        if (progress > 0) {
+            params.width = progress
+        } else {
+            params.width = 1
+        }
+        params.topToBottom = R.id.tv_snr_headline
+        params.startToStart = R.id.limit3
+
+        when {
+            value <= 0 -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr1, context.theme))
+            }
+            value in 1..5 -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr2, context.theme))
+            }
+            value in 6..10 -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr3, context.theme))
+            }
+            value in 11..15 -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr4, context.theme))
+            }
+            value in 16..20 -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr5, context.theme))
+            }
+            value in 21..25 -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr6, context.theme))
+            }
+            value in 26..30 -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr7, context.theme))
+            }
+            else -> {
+                pbSNR.setBackgroundColor(resources.getColor(R.color.snr8, context.theme))
+            }
+        }
     }
 }
