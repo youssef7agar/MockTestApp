@@ -36,12 +36,13 @@ class Table(context: Context,
         val progress = (value + 140) * (100 / 90)
         val params = pbRSRP.layoutParams as LayoutParams
         if (progress > 0) {
-            params.width = progress
+            params.width = dpToPixel(progress)
         } else {
             params.width = 1
         }
         params.topToBottom = R.id.tv_rsrp_headline
         params.startToStart = R.id.limit1
+        params.bottomToBottom = R.id.table_parent
         when {
             value <= -110 -> {
                 pbRSRP.setBackgroundColor(resources.getColor(R.color.rsrp1, context.theme))
@@ -72,12 +73,13 @@ class Table(context: Context,
         val progress = (value + 25) * (4)
         val params = pbRSRQ.layoutParams as LayoutParams
         if (progress > 0) {
-            params.width = progress
+            params.width = dpToPixel(progress)
         } else {
             params.width = 1
         }
         params.topToBottom = R.id.tv_rsrq_headline
         params.startToStart = R.id.limit2
+        params.bottomToBottom = R.id.table_parent
 
         if (value <= -19.5) {
             pbRSRQ.setBackgroundColor(resources.getColor(R.color.rsrq1, context.theme))
@@ -97,12 +99,13 @@ class Table(context: Context,
         val progress = (value + 5) * (100 / 40)
         val params = pbSNR.layoutParams as LayoutParams
         if (progress > 0) {
-            params.width = progress
+            params.width = dpToPixel(progress)
         } else {
             params.width = 1
         }
         params.topToBottom = R.id.tv_snr_headline
         params.startToStart = R.id.limit3
+        params.bottomToBottom = R.id.table_parent
 
         when {
             value <= 0 -> {
@@ -130,5 +133,11 @@ class Table(context: Context,
                 pbSNR.setBackgroundColor(resources.getColor(R.color.snr8, context.theme))
             }
         }
+    }
+
+    fun dpToPixel(value: Int): Int {
+        val scale = context.resources.displayMetrics.density
+        val pixels = (value * scale + 0.5f)
+        return pixels.toInt()
     }
 }

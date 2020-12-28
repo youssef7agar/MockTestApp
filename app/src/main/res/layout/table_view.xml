@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/table_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#474747">
+    android:background="@color/background">
+
+    <View
+        android:id="@+id/limit1"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:background="@color/darker_background"
+        app:layout_constraintEnd_toStartOf="@+id/limit2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rsrp_pb" />
+
+    <View
+        android:id="@+id/limit2"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:background="@color/darker_background"
+        app:layout_constraintEnd_toStartOf="@+id/limit3"
+        app:layout_constraintStart_toEndOf="@id/limit1"
+        app:layout_constraintTop_toTopOf="@id/rsrp_pb" />
+
+    <View
+        android:id="@+id/limit3"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:background="@color/darker_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/limit2"
+        app:layout_constraintTop_toTopOf="@id/rsrp_pb" />
 
     <TextView
         android:id="@+id/tv_rsrp_headline"
@@ -20,7 +48,8 @@
         android:id="@+id/rsrp_pb"
         android:layout_width="1dp"
         android:layout_height="25dp"
-        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintStart_toStartOf="@id/limit1"
         app:layout_constraintTop_toBottomOf="@id/tv_rsrp_headline" />
 
@@ -49,7 +78,8 @@
         android:id="@+id/rsrq_pb"
         android:layout_width="1dp"
         android:layout_height="25dp"
-        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintStart_toStartOf="@id/limit2"
         app:layout_constraintTop_toBottomOf="@id/tv_rsrq_headline" />
 
@@ -78,7 +108,8 @@
         android:id="@+id/snr_pb"
         android:layout_width="1dp"
         android:layout_height="25dp"
-        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintStart_toStartOf="@id/limit3"
         app:layout_constraintTop_toBottomOf="@id/tv_rsrp_headline" />
 
@@ -91,30 +122,5 @@
         app:layout_constraintEnd_toEndOf="@id/limit3"
         app:layout_constraintStart_toStartOf="@id/limit3"
         app:layout_constraintTop_toTopOf="@id/snr_pb" />
-
-
-    <View
-        android:id="@+id/limit1"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/limit2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/limit2"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/limit3"
-        app:layout_constraintStart_toEndOf="@id/limit1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/limit3"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/limit2"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
