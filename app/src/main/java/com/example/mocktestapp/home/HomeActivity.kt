@@ -1,8 +1,6 @@
 package com.example.mocktestapp.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mocktestapp.R
 import com.example.mocktestapp.R.integer.*
@@ -31,14 +29,6 @@ class HomeActivity : AppCompatActivity() {
         setRsrpChart()
         setRsrqChart()
         setSnrChart()
-
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                viewModel.getReading()
-                handler.postDelayed(this, 2000)
-            }
-        }, 0)
 
         viewModel.viewState.observe(this, {
             it.let { homeViewState ->
