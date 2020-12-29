@@ -58,6 +58,8 @@ class HomeActivity : AppCompatActivity() {
     private fun setRsrpChart() {
         rsrpChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         rsrpChart.axisRight.isEnabled = false
+        rsrpChart.setDrawBorders(true)
+        rsrpChart.setDrawMarkers(true)
         rsrpChart.isDragEnabled = true
         rsrpChart.setScaleEnabled(true)
         rsrpChart.setTouchEnabled(true)
@@ -66,6 +68,8 @@ class HomeActivity : AppCompatActivity() {
     private fun setRsrqChart() {
         rsrqChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         rsrqChart.axisRight.isEnabled = false
+        rsrqChart.setDrawBorders(true)
+        rsrqChart.setDrawMarkers(true)
         rsrqChart.isDragEnabled = true
         rsrqChart.setScaleEnabled(true)
         rsrqChart.setTouchEnabled(true)
@@ -74,6 +78,8 @@ class HomeActivity : AppCompatActivity() {
     private fun setSnrChart() {
         snrChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         snrChart.axisRight.isEnabled = false
+        snrChart.setDrawBorders(true)
+        snrChart.setDrawMarkers(true)
         snrChart.isDragEnabled = true
         snrChart.setScaleEnabled(true)
         snrChart.setTouchEnabled(true)

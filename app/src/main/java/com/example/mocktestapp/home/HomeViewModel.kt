@@ -38,13 +38,16 @@ class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
         handler.postDelayed(object : Runnable {
             override fun run() {
                 getReading()
-                handler.postDelayed(this, 3000)
+                handler.postDelayed(this, 2000)
             }
         }, 0)
     }
 
     fun addToRsrpChart(value: Int) {
         rsrpValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        if (rsrpValues.size > 20){
+            rsrpValues.removeAt(0)
+        }
         val rsrpSet = LineDataSet(rsrpValues, "RSRP")
         rsrpSet.fillAlpha = 110
         rsrpSet.notifyDataSetChanged()
@@ -55,6 +58,9 @@ class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
 
     fun addToRsrqChart(value: Int) {
         rsrqValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        if (rsrqValues.size > 20){
+            rsrqValues.removeAt(0)
+        }
         val rsrqSet = LineDataSet(rsrqValues, "RSRQ")
         rsrqSet.fillAlpha = 110
         rsrqSet.notifyDataSetChanged()
@@ -65,6 +71,9 @@ class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
 
     fun addToSnrChart(value: Int) {
         snrValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        if (snrValues.size > 20){
+            snrValues.removeAt(0)
+        }
         val snrSet = LineDataSet(snrValues, "SNR")
         snrSet.fillAlpha = 110
         snrSet.notifyDataSetChanged()
