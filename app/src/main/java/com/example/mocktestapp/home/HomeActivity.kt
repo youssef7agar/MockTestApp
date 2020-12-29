@@ -6,6 +6,7 @@ import com.example.mocktestapp.R
 import com.example.mocktestapp.R.integer.*
 import com.example.mocktestapp.common.custom.Table
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -61,18 +62,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setRsrpChart() {
+        rsrpChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        rsrpChart.axisRight.isEnabled = false
         rsrpChart.isDragEnabled = true
         rsrpChart.setScaleEnabled(true)
         rsrpChart.setTouchEnabled(true)
     }
 
     private fun setRsrqChart() {
+        rsrqChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        rsrqChart.axisRight.isEnabled = false
         rsrqChart.isDragEnabled = true
         rsrqChart.setScaleEnabled(true)
         rsrqChart.setTouchEnabled(true)
     }
 
     private fun setSnrChart() {
+        snrChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        snrChart.axisRight.isEnabled = false
         snrChart.isDragEnabled = true
         snrChart.setScaleEnabled(true)
         snrChart.setTouchEnabled(true)
