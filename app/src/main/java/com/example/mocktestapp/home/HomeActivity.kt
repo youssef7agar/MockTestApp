@@ -2,7 +2,6 @@ package com.example.mocktestapp.home
 
 import android.os.Bundle
 import android.os.Handler
-import android.os.HandlerThread
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mocktestapp.R
@@ -11,7 +10,6 @@ import com.example.mocktestapp.common.custom.Table
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 
 class HomeActivity : AppCompatActivity() {
