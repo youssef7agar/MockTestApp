@@ -1,8 +1,6 @@
 package com.example.mocktestapp.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mocktestapp.R
 import com.example.mocktestapp.R.integer.*
@@ -32,14 +30,6 @@ class HomeActivity : AppCompatActivity() {
         setRsrqChart()
         setSnrChart()
 
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                viewModel.getReading()
-                handler.postDelayed(this, 2000)
-            }
-        }, 0)
-
         viewModel.viewState.observe(this, {
             it.let { homeViewState ->
                 table.setRsrpValue(homeViewState.data?.RSRP ?: rsrp_value)
@@ -68,6 +58,8 @@ class HomeActivity : AppCompatActivity() {
     private fun setRsrpChart() {
         rsrpChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         rsrpChart.axisRight.isEnabled = false
+        rsrpChart.setDrawBorders(true)
+        rsrpChart.setDrawMarkers(true)
         rsrpChart.isDragEnabled = true
         rsrpChart.setScaleEnabled(true)
         rsrpChart.setTouchEnabled(true)
@@ -76,6 +68,8 @@ class HomeActivity : AppCompatActivity() {
     private fun setRsrqChart() {
         rsrqChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         rsrqChart.axisRight.isEnabled = false
+        rsrqChart.setDrawBorders(true)
+        rsrqChart.setDrawMarkers(true)
         rsrqChart.isDragEnabled = true
         rsrqChart.setScaleEnabled(true)
         rsrqChart.setTouchEnabled(true)
@@ -84,6 +78,8 @@ class HomeActivity : AppCompatActivity() {
     private fun setSnrChart() {
         snrChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         snrChart.axisRight.isEnabled = false
+        snrChart.setDrawBorders(true)
+        snrChart.setDrawMarkers(true)
         snrChart.isDragEnabled = true
         snrChart.setScaleEnabled(true)
         snrChart.setTouchEnabled(true)

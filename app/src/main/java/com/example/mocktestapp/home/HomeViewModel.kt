@@ -1,5 +1,7 @@
 package com.example.mocktestapp.home
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import com.example.mocktestapp.common.BaseViewModel
 import com.example.mocktestapp.common.utils.whenFail
@@ -17,6 +19,7 @@ import java.time.format.DateTimeFormatter
 class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
     override val _viewState = MutableLiveData<HomeViewState>().apply { HomeViewState() }
 
+    private val handler = Handler(Looper.getMainLooper())
     private val rsrpValues: ArrayList<Entry> = arrayListOf()
     val rsrpLiveData: MutableLiveData<LineData> = MutableLiveData()
     private val rsrqValues: ArrayList<Entry> = arrayListOf()
@@ -31,8 +34,20 @@ class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
         }
     }
 
-    fun addToRsrpChart(value: Int){
+    init {
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                getReading()
+                handler.postDelayed(this, 2000)
+            }
+        }, 0)
+    }
+
+    fun addToRsrpChart(value: Int) {
         rsrpValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        if (rsrpValues.size > 20){
+            rsrpValues.removeAt(0)
+        }
         val rsrpSet = LineDataSet(rsrpValues, "RSRP")
         rsrpSet.fillAlpha = 110
         rsrpSet.notifyDataSetChanged()
@@ -41,8 +56,11 @@ class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
         rsrpLiveData.postValue(LineData(dataSets))
     }
 
-    fun addToRsrqChart(value: Int){
+    fun addToRsrqChart(value: Int) {
         rsrqValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        if (rsrqValues.size > 20){
+            rsrqValues.removeAt(0)
+        }
         val rsrqSet = LineDataSet(rsrqValues, "RSRQ")
         rsrqSet.fillAlpha = 110
         rsrqSet.notifyDataSetChanged()
@@ -51,8 +69,11 @@ class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
         rsrqLiveData.postValue(LineData(dataSets))
     }
 
-    fun addToSnrChart(value: Int){
+    fun addToSnrChart(value: Int) {
         snrValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        if (snrValues.size > 20){
+            snrValues.removeAt(0)
+        }
         val snrSet = LineDataSet(snrValues, "SNR")
         snrSet.fillAlpha = 110
         snrSet.notifyDataSetChanged()
@@ -69,7 +90,7 @@ class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
     }
 
     private fun setState(
-        block: HomeViewState.() -> HomeViewState
+            block: HomeViewState.() -> HomeViewState
     ) {
         setState(HomeViewState(), block)
     }

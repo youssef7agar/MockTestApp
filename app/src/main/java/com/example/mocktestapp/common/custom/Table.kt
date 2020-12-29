@@ -135,7 +135,7 @@ class Table(context: Context,
         }
     }
 
-    fun dpToPixel(value: Int): Int {
+    private fun dpToPixel(value: Int): Int {
         val scale = context.resources.displayMetrics.density
         val pixels = (value * scale + 0.5f)
         return pixels.toInt()
