@@ -1,24 +1,71 @@
 package com.example.mocktestapp.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.mocktestapp.common.BaseViewModel
 import com.example.mocktestapp.common.utils.whenFail
 import com.example.mocktestapp.common.utils.whenSuccess
 import com.example.mocktestapp.repository.Repo
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class HomeViewModel(private val repo: Repo) : BaseViewModel<HomeViewState>() {
     override val _viewState = MutableLiveData<HomeViewState>().apply { HomeViewState() }
 
+    private val rsrpValues: ArrayList<Entry> = arrayListOf()
+    val rsrpLiveData: MutableLiveData<LineData> = MutableLiveData()
+    private val rsrqValues: ArrayList<Entry> = arrayListOf()
+    val rsrqLiveData: MutableLiveData<LineData> = MutableLiveData()
+    private val snrValues: ArrayList<Entry> = arrayListOf()
+    val snrLiveData: MutableLiveData<LineData> = MutableLiveData()
+
     fun getReading() = launch {
-        Log.d("XXXXXXXXXXXXXXX", "getReading: HEREEEEE")
         repo.getReadings().whenSuccess {
-            Log.d("XXXXXXXXXXXXXXXXX", "getReading: $it")
             setState { HomeViewState(data = it) }
         }.whenFail {
-            Log.d("XXXXXXXXXXXXXXXXXX", "getReading: $it")
         }
+    }
+
+    fun addToRsrpChart(value: Int){
+        rsrpValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        val rsrpSet = LineDataSet(rsrpValues, "RSRP")
+        rsrpSet.fillAlpha = 110
+        rsrpSet.notifyDataSetChanged()
+        val dataSets: ArrayList<ILineDataSet> = arrayListOf()
+        dataSets.add(rsrpSet)
+        rsrpLiveData.postValue(LineData(dataSets))
+    }
+
+    fun addToRsrqChart(value: Int){
+        rsrqValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        val rsrqSet = LineDataSet(rsrqValues, "RSRQ")
+        rsrqSet.fillAlpha = 110
+        rsrqSet.notifyDataSetChanged()
+        val dataSets: ArrayList<ILineDataSet> = arrayListOf()
+        dataSets.add(rsrqSet)
+        rsrqLiveData.postValue(LineData(dataSets))
+    }
+
+    fun addToSnrChart(value: Int){
+        snrValues.add(Entry(getTime().toFloat(), value.toFloat()))
+        val snrSet = LineDataSet(snrValues, "SNR")
+        snrSet.fillAlpha = 110
+        snrSet.notifyDataSetChanged()
+        val dataSets: ArrayList<ILineDataSet> = arrayListOf()
+        dataSets.add(snrSet)
+        snrLiveData.postValue(LineData(dataSets))
+    }
+
+    private fun getTime(): String {
+        return DateTimeFormatter
+                .ofPattern("HH.mmss")
+                .withZone(ZoneId.of("CAT"))
+                .format(Instant.now())
     }
 
     private fun setState(
