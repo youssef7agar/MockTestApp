@@ -3,4 +3,7 @@
     <string name="rsrp">RSRP</string>
     <string name="rsrq">RSRQ</string>
     <string name="snr">SNR</string>
+    <integer name="rsrp_value">-120</integer>
+    <integer name="rsrq_value">-25</integer>
+    <integer name="snr_value">-5</integer>
 </resources>

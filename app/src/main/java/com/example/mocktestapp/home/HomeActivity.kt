@@ -1,39 +1,92 @@
 package com.example.mocktestapp.home
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.example.mocktestapp.R
+import com.example.mocktestapp.R.integer.*
+import com.example.mocktestapp.common.custom.Table
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
+
 
 class HomeActivity : AppCompatActivity() {
 
     private val viewModel: HomeViewModel by viewModel()
 
+    private lateinit var rsrpChart: LineChart
+    private lateinit var rsrqChart: LineChart
+    private lateinit var snrChart: LineChart
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val rsrp = findViewById<TextView>(R.id.tv_rsrp)
-        val rsrq = findViewById<TextView>(R.id.tv_rsrq)
-        val snr = findViewById<TextView>(R.id.tv_snr)
+        val table = findViewById<Table>(R.id.table)
+        rsrpChart = findViewById(R.id.rsrp_chart)
+        rsrqChart = findViewById(R.id.rsrq_chart)
+        snrChart = findViewById(R.id.snr_chart)
+        setRsrpChart()
+        setRsrqChart()
+        setSnrChart()
 
-
-        Timer().scheduleAtFixedRate(object : TimerTask() {
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed(object : Runnable {
             override fun run() {
                 viewModel.getReading()
+                handler.postDelayed(this, 2000)
             }
-        }, 2000, 2000)
+        }, 0)
 
-        viewModel.viewState.observe(this, Observer {
+        viewModel.viewState.observe(this, {
             it.let { homeViewState ->
-                rsrp.text = homeViewState.data?.RSRP.toString()
-                rsrq.text = homeViewState.data?.RSRQ.toString()
-                snr.text = homeViewState.data?.SINR.toString()
+                table.setRsrpValue(homeViewState.data?.RSRP ?: rsrp_value)
+                viewModel.addToRsrpChart(homeViewState.data?.RSRP ?: rsrp_value)
+                table.setRsrqValue(homeViewState.data?.RSRQ ?: rsrq_value)
+                viewModel.addToRsrqChart(homeViewState.data?.RSRQ ?: rsrq_value)
+                table.setSnrValue(homeViewState.data?.SINR ?: snr_value)
+                viewModel.addToSnrChart(homeViewState.data?.SINR ?: snr_value)
             }
         })
+
+        viewModel.rsrpLiveData.observe(this, {
+            rsrpChart.data = it
+            rsrpChart.invalidate()
+        })
+        viewModel.rsrqLiveData.observe(this, {
+            rsrqChart.data = it
+            rsrqChart.invalidate()
+        })
+        viewModel.snrLiveData.observe(this, {
+            snrChart.data = it
+            snrChart.invalidate()
+        })
     }
+
+    private fun setRsrpChart() {
+        rsrpChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        rsrpChart.axisRight.isEnabled = false
+        rsrpChart.isDragEnabled = true
+        rsrpChart.setScaleEnabled(true)
+        rsrpChart.setTouchEnabled(true)
+    }
+
+    private fun setRsrqChart() {
+        rsrqChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        rsrqChart.axisRight.isEnabled = false
+        rsrqChart.isDragEnabled = true
+        rsrqChart.setScaleEnabled(true)
+        rsrqChart.setTouchEnabled(true)
+    }
+
+    private fun setSnrChart() {
+        snrChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        snrChart.axisRight.isEnabled = false
+        snrChart.isDragEnabled = true
+        snrChart.setScaleEnabled(true)
+        snrChart.setTouchEnabled(true)
+    }
+
 }

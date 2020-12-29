@@ -1,78 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#f6f6f6"
     tools:context=".home.HomeActivity">
 
-    <TextView
-        android:id="@+id/tv_rsrp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tv_rsrp_headline"
-        app:layout_constraintStart_toStartOf="@id/tv_rsrp_headline"
-        app:layout_constraintTop_toBottomOf="@id/tv_rsrp_headline" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_rsrq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tv_rsrq_headline"
-        app:layout_constraintStart_toStartOf="@id/tv_rsrq_headline"
-        app:layout_constraintTop_toBottomOf="@id/tv_rsrq_headline" />
+        <com.example.mocktestapp.common.custom.Table
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rsrp_value="@integer/rsrp_value"
+            app:rsrq_value="@integer/rsrq_value"
+            app:snr_value="@integer/snr_value" />
 
-    <TextView
-        android:id="@+id/tv_snr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tv_snr_headline"
-        app:layout_constraintStart_toStartOf="@id/tv_snr_headline"
-        app:layout_constraintTop_toBottomOf="@id/tv_snr_headline" />
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/rsrp_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toTopOf="@id/rsrq_chart"
+            app:layout_constraintTop_toBottomOf="@id/table" />
 
-    <TextView
-        android:id="@+id/tv_rsrp_headline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="@string/rsrp"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@id/tv_rsrq_headline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/rsrq_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toTopOf="@id/snr_chart"
+            app:layout_constraintTop_toBottomOf="@id/rsrp_chart" />
 
-    <TextView
-        android:id="@+id/tv_rsrq_headline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="@string/rsrq"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@id/tv_snr_headline"
-        app:layout_constraintStart_toEndOf="@id/tv_rsrp_headline"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_snr_headline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="@string/snr"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_rsrq_headline"
-        app:layout_constraintTop_toTopOf="parent" />
-    
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/snr_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rsrq_chart" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

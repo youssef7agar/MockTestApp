@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Table">
+        <attr name="rsrp_value" format="integer"/>
+        <attr name="rsrq_value" format="integer"/>
+        <attr name="snr_value" format="integer"/>
+    </declare-styleable>
+</resources>
